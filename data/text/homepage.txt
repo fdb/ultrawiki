@@ -12,7 +12,3 @@ Features
 Getting started
 ================
 Getting started with Ultrawiki is easy. Choose the login link at the bottom. The standard account is *demo* with password *demo*. Once you are logged in, you can edit the current page, adjust permissions and so on. Read the [[documentation]](documentation) for more information.
-
-Contact
-=======
-Ultrawiki is written by Frederik De Bleser. You can reach him at frederik (at) pandora (dot) be.

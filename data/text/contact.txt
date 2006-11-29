@@ -1,6 +1,10 @@
 :creator=demo:group=admin:mode=764:parent=documentation:
-I encourage you to send me your comments regarding Ultrawiki. I might not be able to respond immediately to all email, but I'll do my best. If you keep waiting for an answer, please don't take it personally.
-
-Please address correspondence to:
-
+Frederik De Bleser
+---------------
+Ultrawiki core and media management<br>
 <frederik@pandora.be>
+
+Tom De Smedt
+-------------
+Extensions<br>
+<tomdesmedt@gmail.com>.
