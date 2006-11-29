@@ -1,0 +1,82 @@
+<?php 
+function _perm_options($perm, $show_noaccess=True) {
+    $s = "";
+    if ($perm == '7') {
+       $s .= "<option value=\"7\" selected=\"selected\">Read, Edit & Layout</option>\n";
+    } else {
+       $s .= "<option value=\"7\">Read, Edit &amp; Layout</option>\n";
+    }
+    if ($perm == '6') {
+       $s .= "<option value=\"6\" selected=\"selected\">Read & Edit</option>\n";
+    } else {
+       $s .= "<option value=\"6\">Read &amp; Edit</option>\n";
+    }
+   if ($perm == '4') {
+       $s .= "<option value=\"4\" selected=\"selected\">Read only</option>\n";
+    } else {
+       $s .= "<option value=\"4\">Read only</option>\n";
+    }
+    if ($show_noaccess) {
+       if ($perm == '0') {
+           $s .= "<option value=\"0\" selected=\"selected\">No access</option>\n";
+        } else {
+           $s .= "<option value=\"0\">No access</option>\n";
+        }
+    }
+    return $s;
+}
+
+list($creatormode, $groupmode, $worldmode) = $ctx->page->mode;
+if (sec_is_admin($ctx->user)) { 
+    $groups = sec_all_groups($ctx->user);
+} else {
+    $groups = sec_groups($ctx->user);
+}
+?>
+<h1><?php print do_title() ?><span class="action"> &rarr; permissions</span></h1>
+<form method="post" action="<?php print do_href() ?>" class="uwform" id="perm" >
+<table class="perm">
+<tr><td align="right">Creator:</td><td>
+<?php if (sec_is_admin($ctx->user)): ?>
+    <select name="creator">
+    <?php foreach (sec_all_users() as $user): ?>
+        <?php if ($ctx->page->creator == $user): ?>
+            <option value="<?php print$user?>" selected="selected"><?php print$user?></option>
+        <?php else: ?>
+            <option value="<?php print$user?>"><?php print$user?></option>
+        <?php endif ?>
+    <?php endforeach ?>
+<?php else: ?>
+    <?php print $ctx->page->creator ?><input type="hidden" name="creator" value="<?php print $ctx->page->creator ?>" />
+<?php endif ?>
+</select>
+</td></tr>
+<tr><td align="right">Access:</td>
+<td><select name="creatormode">
+<?php print _perm_options($creatormode, False); ?>
+</select></td></tr>
+<tr><td colspan="2">&nbsp;</td></tr>
+<tr><td align="right">Group:</td>
+<td><select name="group">
+<?php foreach($groups as $group): ?>
+    <?php if ($ctx->page->group == $group): ?>
+        <option value="<?php print$group?>" selected="selected"><?php print$group?></option>
+    <?php else: ?>
+        <option value="<?php print$group?>"><?php print$group?></option>
+    <?php endif ?>
+<?php endforeach ?>
+</select></td></tr>
+<tr><td align="right">Access:</td><td><select name="groupmode">
+<?php print _perm_options($groupmode); ?>
+</select></td></tr>
+<tr><td colspan="2">&nbsp;</td></tr>
+<tr><td align="right">Everyone:</td>
+<td><select name="worldmode">
+<?php print _perm_options($worldmode); ?>
+</select></td></tr>
+<tr><td colspan="2">&nbsp;</td></tr>
+<tr><td align="right">Parent:</td>
+<td><input type="text" name="parent" size="20" value="<?php print$ctx->page->parentPage?>" /></td></tr>
+<tr><td colspan="2">&nbsp;</td></tr>
+<tr><td></td><td><input type="submit" name="s" value="Save" accesskey="s" /><input type="hidden" name="__perm" /></td></tr>
+</table>

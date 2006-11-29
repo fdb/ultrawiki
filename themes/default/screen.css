@@ -1,0 +1,97 @@
+/* @override http://igor.local/ultrawiki/themes/default/screen.css */
+
+body {
+	font: small verdana, helvetica, sans-serif;
+	margin: 0;
+	padding: 0;
+}
+
+#header h1 {
+ 	font: 150% helvetica;
+ 	font-weight: bold;
+	background: #eee;
+	margin: 0 0 0 0;
+	padding: 10px;
+	font-size: 150%;
+	border-bottom: 1px solid #bbb;
+}
+
+#header h1 a {
+	color: #551769;
+	text-decoration: none;	
+}
+
+#nav { 
+	position: absolute;
+	left: 0;
+}
+
+#nav ul { 
+	margin: 0;
+	padding: 10px;
+ }
+
+#nav li { 
+	list-style-type: none; 
+}
+
+#nav li a {
+	line-height: 170%;
+}
+
+#actionbar { 
+	background: #f7f7f7;
+	border-top: 1px solid #ccc;
+	border-bottom: 1px solid #ccc;
+	padding: 5px 10px;
+}
+
+#actionbar a { 
+	color: #77f;
+	margin-right: 5px;
+}
+
+#content, #footer, #actionbar { 
+	margin: 0 0 0 11em;
+	width: 60em;
+}
+
+#content {
+	margin-top: 15px;
+	margin-bottom: 10px;
+}
+
+#content ul {
+	margin: 10px 0;
+	padding: 0 0 0 30px;
+}
+
+#content h1 {
+ 	font: 120% helvetica,sans-serif;
+ 	font-weight: bold;
+	margin: 15px 0 5px 0;
+	padding: 0;
+}
+
+#content h2 {
+ 	font: 110% helvetica,sans-serif;
+ 	font-weight: bold;
+	margin: 15px 0 5px 0;
+	padding: 0;
+}
+
+#content p {
+	line-height: 130%;
+	margin: 5px 0 10px 0;
+}
+
+#footer {
+	border-bottom: 1px solid #eee;
+	color: #ccc;
+	padding: 5px 10px;
+}
+
+form.uwform {
+	margin: 0 0 0px 0;
+	padding: 0 0 0px 0;
+}

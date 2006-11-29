@@ -1,0 +1,88 @@
+:creator=demo:group=admin:mode=764:parent=Screenshots:
+This website is a *wiki*. This means that anyone who has a password, can login and make changes to the site content, all from a web browser - so you are not redirected to some obscure content management system full of rules and regulations. A wiki means self-organising chaos.
+
+This type of wiki is an *ultrawiki*, a special type of wiki developed by Frederik De Bleser, and extended by Frederik De Bleser and Tom De Smedt. UltraWiki supports user management, different permissions and layouts per page, while keeping its source code easy and compact.
+
+How Permissions work
+====================
+
+Each page has permissions about who can edit and read. By default, you can edit any page your group created, or change the permissions of those pages. For example: setting the permissions of a page so that your group can edit and read, but deny everyone else the right to read, creates a private page for your group. You cannot edit the pages created by other groups, except for teachers who can edit the pages of students. Administrators can edit and read everything - only Tom and Frederik are administrators and we respect your confidentiality.
+
+MarkDown
+========
+
+The basic editing syntax is based on [[http://daringfireball.net/projects/markdown/]](MarkDown). MarkDown has some simple styling rules:
+
+*Headers:*
+<pre>Title
+=====</pre>
+
+*Links:*
+<pre>[[Projects]]
+[[http://www.nodebox.net/]]
+[[http://www.nodebox.net/]](Nodebox site)</pre>
+
+*Media:*
+<pre>!imagefile.jpg!
+!soundfile.mp3!
+!moviefile.mov!</pre>
+
+*Bold text:*
+<pre><strong>*important*</strong></pre>
+
+*Italic text:*
+<pre><em>_likely_</em></pre>
+
+*Horizontal line:*
+<pre>----</pre>
+
+HTML Markup
+===========
+
+If you want to do more advanced layouting, you'll have to use HTML in the edit window. Some simple HTML layout commands include:
+
+*Table:*
+
+<table>
+<tr>
+<td>row 1 column 1</td>
+<td>row 1 column 2</td>
+</tr>
+<tr>
+<td>row 2 column 1</td>
+<td>row 2 column 2</td>
+</tr>
+</table>
+
+<br/>
+
+`<table>`<br/>
+`<tr>`<br />
+`<td>`row 1 column 1`</td>`<br />
+`<td>`row 1 column 2`</td>`<br />
+`</tr>`<br/>
+`<tr>`<br/>
+`<td>`row 2 column 1`</td>`<br />
+`<td>`row 2 column 2`</td>`<br />
+`</tr>`<br/>
+`</table>`<br/>
+
+*Image link:*
+
+`<a href="link">`<br />
+`<img src="../data/media/image.jpg" alt="" />`<br />
+`</a>`
+
+*Linebreak:*
+
+Break to the next line <br /> without creating a new paragraph.
+
+`Break to the next line <br />without creating a new paragraph.`
+
+*CSS styles:*
+
+Just as with normal HTML markup, you can use inline CSS to style your tags. This way you could use text color or different font sizes. Naturally, abuse of this feature will be dealt with accordingly - the wiki should be kept clean and consistent.
+
+This is very <span style="color:red;">important</span>.
+
+`This is very <span style="color:red;">important</span>.`

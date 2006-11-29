@@ -1,0 +1,6 @@
+:creator=demo:group=admin:mode=764:parent=documentation:
+I encourage you to send me your comments regarding Ultrawiki. I might not be able to respond immediately to all email, but I'll do my best. If you keep waiting for an answer, please don't take it personally.
+
+Please address correspondence to:
+
+<frederik@pandora.be>
