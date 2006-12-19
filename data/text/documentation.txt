@@ -1,7 +1,7 @@
 :creator=demo:group=admin:mode=764:parent=Screenshots:
-This website is a *wiki*. This means that anyone who has a password, can login and make changes to the site content, all from a web browser - so you are not redirected to some obscure content management system full of rules and regulations. A wiki means self-organising chaos.
+This website is a *wiki*. This means that anyone who has a password, can login and make changes to the site content, all from a web browser. You can easily create new pages and basically organize the system however you please. A wiki means self-organising chaos.
 
-This type of wiki is an *ultrawiki*, a special type of wiki developed by Frederik De Bleser, and extended by Frederik De Bleser and Tom De Smedt. UltraWiki supports user management, different permissions and layouts per page, while keeping its source code easy and compact.
+*UltraWiki* is a wiki implementation supporting user management, different permissions and layouts per page, and themeability.
 
 How Permissions work
 ====================

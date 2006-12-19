@@ -14,7 +14,6 @@ require_once('lib/log.php');
 require_once('lib/theme.php');
 require_once('lib/do.php');
 require_once('lib/sec.php');
-require_once('lib/html.php');
 require_once('lib/page-fs.php');
 require_once('lib/embed.php');
 #require_once('lib/page-db.php');

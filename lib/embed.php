@@ -8,7 +8,7 @@ $EMBED_MOVIETYPES = array("mov", "mpg");
 // localfile is needed for analyzing
 function embed_media($url) {
     global $EMBED_IMAGETYPES, $EMBED_SOUNDTYPES, $EMBED_MOVIETYPES;
-    list($dir, $base, $ext) = array_values(pathinfo($url));
+    @list($dir, $base, $ext) = array_values(pathinfo($url));
     
     if (in_array($ext, $EMBED_IMAGETYPES)) {
         return embed_image($url);
@@ -154,8 +154,8 @@ function embed_local_file($url) {
 }
 
 function embed_convert_internal_url($url) {
-    global $gMediaPath;
-    return $gMediaPath . $url;
+    global $gMediaURL;
+    return $gMediaURL . $url;
 }
 
 ?>

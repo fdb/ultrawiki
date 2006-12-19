@@ -1,31 +1,35 @@
 <?php
 /**
  * config.php
- * Minwiki Configuration File
+ * Ultrawiki Configuration File
  *
  *
  */
 
 $gWikiName = 'Ultrawiki';
+$gTheme = 'default';
+$gHomepage = 'homepage';
 
-$gWikiPath = '/ultrawiki/';
+$gWikiFolder = './';
+$gWikiURL = '/ultrawiki/';
 
-$gDataFolder = 'data/';
-
+$gDataFolder = $gWikiFolder . 'data/';
 $gTextFolder = $gDataFolder . 'text/';
 $gCacheFolder = $gDataFolder . 'cache/';
 $gMediaFolder = $gDataFolder . 'media/';
 $gThumbFolder = $gDataFolder . 'thumbs/';
-$gPermFolder = $gDataFolder . 'perm/';
-$gUserFile = $gPermFolder . 'users.db';
-$gGroupFile = $gPermFolder . 'groups.db';
+$gUserFile = $gDataFolder . 'perm/users.db';
+$gGroupFile = $gDataFolder . 'perm/groups.db';
 
-$gThemesFolder = 'themes/';
-$gThemePath = $gWikiPath . 'themes/';
+$gThemesFolder = $gWikiFolder . 'themes/';
+$gThemeURL = $gWikiURL . "themes/$gTheme/";
+$gDefaultThemeURL = $gWikiURL . 'themes/default/';
 
+$gMediaURL = $gWikiURL . 'data/media/';
+$gThumbURL = $gWikiURL . 'data/thumbs/';
 
-$gMediaPath = $gWikiPath . 'data/media/';
-$gThumbPath = $gWikiPath . 'data/thumbs/';
+$gMediaURL = $gWikiURL . 'data/media/';
+$gThumbURL = $gWikiURL . 'data/thumbs/';
 $gThumbWidth = $gThumbHeight = 150;
 $gThumbQuality = 90;
 $gThumbBackRed = 240;
@@ -37,10 +41,7 @@ $gImageTypes = array("jpg", "gif", "png");
 $gSoundTypes = array("mp3");
 $gMovieTypes = array("mov");
 
-$gTheme = 'default';
 $gOutputType = 'html';
-
-$gHomepage = 'homepage';
 
 //=== Don't change these ==//
 $gReadFlag = 4;

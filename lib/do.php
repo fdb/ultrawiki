@@ -116,15 +116,15 @@ function do_wiki_name() {
 }
 
 function do_href($page=false, $action=false, $prevpage=false) {
-    global $gPage, $gScript, $gHomepage, $gWikiPath;
+    global $gPage, $gScript, $gHomepage, $gWikiURL;
     if (!$page)
         $page = $gPage;
     if (is_object($page))
         $page = $page->name;
     if (strcmp($page, $gHomepage) == 0) {
-        $link = "$gWikiPath";
+        $link = "$gWikiURL";
     } else {
-        $link = "$gWikiPath$page";
+        $link = "$gWikiURL$page";
     }
     if ($action) {
         $link .= "?$action";
@@ -135,15 +135,19 @@ function do_href($page=false, $action=false, $prevpage=false) {
     return $link;
 }
 
-function do_theme_href($link) {
-    global $gWikiPath, $gThemePath, $gTheme;
-    return "$gThemePath$gTheme/$link";
+function do_wiki_url($suffix="") {
+    global $gWikiURL;
+    return $gWikiURL . $suffix;
 }
 
+function do_theme_url($suffix="") {
+    global $gThemeURL;
+    return $gThemeURL . $suffix;
+}
 
-function do_default_theme_href($link) {
-    global $gWikiPath, $gThemePath, $gTheme;
-    return "{$gThemePath}default/$link";
+function do_default_theme_url($suffix="") {
+    global $gDefaultThemeURL;
+    return $gDefaultThemeURL . $suffix;
 }
 
 function do_name() {
