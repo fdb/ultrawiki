@@ -1,6 +1,6 @@
 <?php
 do_bodytag('onload="document.getElementById(\'edit-text\').focus()"');
-do_headtag('<script type="text/javascript" src="../edit.js"></script>');
+do_headtag('<script type="text/javascript" src="' . do_wiki_url('edit.js') .'"></script>');
 ?>
 <h1><?php print do_title() ?><span class="action"> &rarr; edit</span></h1>
 <form method="post" action="<?php print do_href() ?>" class="uwform" id="edit">

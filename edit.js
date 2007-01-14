@@ -7,7 +7,7 @@ function openWindow(url, name, params) {
 
 
 function insertMediaElement() {
-    openWindow('../media.php', '_uw_media', 'width=750,height=400')
+    openWindow('media.php', '_uw_media', 'width=750,height=400')
 }
 
 function storeCaret(area) {
