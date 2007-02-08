@@ -20,8 +20,184 @@ require_once('lib/embed.php');
 #require_once('lib/adodb/adodb.inc.php');
 require_once('lib/util.php');
 require_once('lib/markdown.php');
+require_once('lib/smartypants.php');
 require_once('lib/do.php');
 session_start();
+
+
+function browse() {
+    global $gPage, $gUser;
+    if (sec_can_read($gPage,$gUser)) {
+        do_content($gPage->render());
+        do_page('browse');
+    } else {
+        do_message("The $gPage->name page is only viewable with the correct permissions.<br />Please login here.");
+        do_action('login');
+        do_page('login');
+    }
+    // Remember the last page I visited for inheriting the permissions from.
+    $_SESSION['prevpage'] = $gPage;
+}
+
+function login() {
+    global $gPage;
+    if (getenv("REQUEST_METHOD") == "POST") {
+        if (sec_validate_user($_POST['username'], $_POST['password'])) {
+            sec_login($_POST['username']);
+            header("Location: " . do_href($gPage));
+        } else {
+            do_message("Invalid login or password.");
+            do_action('login');
+            do_page('login');
+        }
+    } else {
+        do_action('login');
+        do_page('login');
+    }
+}
+
+function logout() {
+    global $gPage;
+    sec_logout();
+    header("Location: " . do_href($gPage));
+}
+
+function create() {
+    global $gPage, $gUser;
+    if (sec_can_create($gPage, $gUser)) {
+        if ($gPage->exists()) // If the page exists, redirect to the edit page.
+            header("Location: " . do_href($gPage, 'edit'));
+        if (getenv("REQUEST_METHOD") == "POST") {
+            $gPage->content = $_POST['text'];
+            $gPage->creator = $gUser;
+            $gPage->inherit($_SESSION['prevpage']);
+            $gPage->store();
+            header("Location: " . do_href($gPage));
+        } else {
+            do_action('create');
+            do_page('create');
+        }
+    } else {
+        do_message("You do not have the required permisions to create this page.");
+        do_page('forbidden');
+    }
+}
+
+function edit() {
+    global $gPage, $gUser;
+    if (sec_can_edit($gPage, $gUser)) {
+        if (!$gPage->exists()) // If the page doesn't exist, redirect to the create page.
+            header("Location: " . do_href($gPage, 'create'));
+        if (getenv("REQUEST_METHOD") == "POST") {
+            $gPage->content = $_POST['text'];
+            $gPage->store();
+            header("Location: " . do_href($gPage));
+        } else {
+            do_content($gPage->content);
+            do_action('edit');
+            do_page('edit');
+        }
+    } else {
+        do_message("You do not have the required permisions to edit this page.");
+        do_page('forbidden');
+    }
+}
+
+function perm() {
+    global $gPage, $gUser;
+    if (sec_can_perm($gPage, $gUser)) {
+        if (getenv("REQUEST_METHOD") == "POST") {
+            $gPage->creator = $_POST['creator'];
+            $gPage->group = $_POST['group'];
+            $creatormode = $_POST['creatormode'];
+            $groupmode = $_POST['groupmode'];
+            $worldmode = $_POST['worldmode'];
+            $gPage->mode = $creatormode . $groupmode . $worldmode;
+            $gPage->parentPage = $_POST['parent'];
+            $gPage->store();
+            header("Location: " . do_href($gPage));
+        } else {
+            do_action('perm');
+            do_page('perm');
+        }
+    } else {
+        do_message("You do not have the correct permissions to edit permissions.");
+        do_page('forbidden');
+    }
+}
+
+function layout() {
+    global $gPage, $gUser;
+    if (sec_can_layout($gPage, $gUser)) {
+        if (getenv("REQUEST_METHOD") == "POST") {
+            $gPage->layout = $_POST['layout'];
+            $gPage->bgcolor = $_POST['bgcolor'];
+            $gPage->bgimage = $_POST['bgimage'];
+            $gPage->fgcolor = $_POST['fgcolor'];
+            $gPage->store();
+            header("Location: " . do_href($gPage));
+        } else {
+            do_action('layout');
+            do_page('layout');
+        }
+    } else {
+        do_message("You do not have the correct permissions to layout this page.");
+        do_page('forbidden');
+    }
+}
+
+function passwd() {
+    global $gPage, $gUser;
+    if (sec_can_passwd($gUser)) {
+        if (getenv("REQUEST_METHOD") == "POST") {
+            $users = $_POST['users'];
+            $groups = $_POST['groups'];
+            sec_store_users($users);
+            sec_store_groups($groups);
+            header("Location: " . do_href($gPage));
+        } else {
+            $users = sec_read_users();
+            $groups = sec_read_groups();
+            do_var('users', $users);
+            do_var('groups', $groups);
+            do_action('passwd');
+            do_page('passwd');
+        }
+    } else {
+        do_message("You do not have the correct permissions to edit passwords.");
+        do_page('forbidden');
+    }
+
+}
+
+function search() {
+    $q = $_GET['q'];
+    $links = page_search($q);
+    html_results($q, $links);
+}
+
+function backlinks() {
+    $blinks = page_backlinks($gPage);
+    html_backlinks($gPage, $blinks);  
+}
+
+function all() {
+    $links = page_allpages($q);
+    html_allpages($links);
+}
+
+function get_page_or_die() {
+    global $gPage, $gUser;
+    if (!$gPage->exists()) { // Redirect to create interface
+        header("HTTP/1.0 404 Not Found");
+        if (sec_can_create($gPage, $gUser)) {
+            header("Location: " . do_href($gPage, 'create'));
+        } else {
+            do_page('404');
+        }
+        exit();
+    }
+}
 
 //// Main loop ////
 $gRequest = $_SERVER['REQUEST_URI'];
@@ -32,139 +208,41 @@ if (empty($gPageName))
     $gPageName = $gHomepage;
 $gPage = new Page($gPageName);
 $gUser = @$_SESSION['user'];
-theme_load($gTheme);
 
 if (strtolower($gPageName) != $gPageName) {
     $gPageName = strtolower($gPageName);
-    header("Location: " . do_href($gPageName));    
+    header("Location: " . do_href($gPageName));
 } else if (stripos($gRequest, 'index.php')) {
     $gPageName = strtolower($gPageName);
     header("Location: " . do_href($gPageName));
 } else {
-    // Logout
-    if (isset($_GET['logout'])) { // Logout
-        sec_logout();
-        header("Location: " . do_href($gPage));
-    }
-    // Forms
-    if (isset($_POST['__login'])) { // Login form
-        if (sec_validate_user($_POST['username'], $_POST['password'])) {
-            sec_login($_POST['username']);
-            header("Location: " . do_href($gPage));
-        }
-    }
-    if (isset($_POST['__create'])) { // Create the page
-        $gPage->content = $_POST['text'];
-        $gPage->creator = $gUser;
-        $gPage->inherit($_SESSION['prevpage']);
-        $gPage->store();
-        header("Location: " . do_href($gPage));
-    }
-    if (isset($_POST['__passwd'])) { // Passwords
-        $users = $_POST['users'];
-        $groups = $_POST['groups'];
-        sec_store_users($users);
-        sec_store_groups($groups);
-        header("Location: " . do_href($gPage));
-    }
-    if (isset($_POST['__edit'])) { // Update the page
-        $gPage->content = $_POST['text'];
-        $gPage->store();
-        header("Location: " . do_href($gPage));
-    }
-    if (isset($_POST['__layout'])) { // Update the page
-        $gPage->layout = $_POST['layout'];
-        $gPage->bgcolor = $_POST['bgcolor'];
-        $gPage->bgimage = $_POST['bgimage'];
-        $gPage->fgcolor = $_POST['fgcolor'];
-        $gPage->store();
-        header("Location: " . do_href($gPage));
-    }
-    if (isset($_POST['__perm'])) { // Change page permissions
-        $gPage->creator = $_POST['creator'];
-        $gPage->group = $_POST['group'];
-        $creatormode = $_POST['creatormode'];
-        $groupmode = $_POST['groupmode'];
-        $worldmode = $_POST['worldmode'];
-        $gPage->mode = $creatormode . $groupmode . $worldmode;
-        $gPage->parentPage = $_POST['parent'];
-        $gPage->store();
-        header("Location: " . do_href($gPage));
-    }
-    
-    // Others
-    if (isset($_GET['login'])) { // Show login interface
-        do_page('login');
-    } elseif (isset($_GET['create'])) { // Show create interface
-        if (sec_can_create($gPage, $gUser)) {
-            do_page('create');
-        } else {
-                do_message("The $gPage->name page is currently empty.<br />If you have the correct permissions, please login to create this page.");
-                do_action('create');
-                do_page('login');
-            // html_login($gPage, "The $gPage->name page is currently empty.<br />If you have the correct permissions, please login to create this page.", 'create');
-        }
-    } elseif (isset($_GET['edit'])) { // Show edit interface
-        if (!$gPage->exists()) { // If the page doesn't exist, redirect to the create interface.
-            header("Location: $gSelf?create");
-        } else {        
-            if (sec_can_edit($gPage, $gUser)) {
-                do_content($gPage->content);
-                do_page('edit');
-            } else {
-                do_message("The $gPage->name page is only editable with the correct permissions.<br />Please login here.");
-                do_action('edit');
-                do_page('login');
-            }
-        }
-    } else if (!$gPage->exists()) { // Redirect to create interface
-        header("HTTP/1.0 404 Not Found");
-        if (sec_can_create($gPage, $gUser)) {
-            do_page('create');
-        } else {
-            do_page('404');
-        }
-    } elseif (isset($_GET['perm'])) { // Show permission interface
-        if (sec_can_perm($gPage, $gUser)) {
-            do_page('perm');
-        } else {
-            do_message("The permissions of the $gPage->name page are only editable by its creator.<br />Please login here.");
-            do_action('perm');
-            do_page('login');
-        }
-    } elseif (isset($_GET['passwd'])) { // Show passwd interface
-        if (sec_can_passwd($gUser)) {
-            $users = sec_read_users();
-            $groups = sec_read_groups();
-            do_var('users', $users);
-            do_var('groups', $groups);
-            do_page('passwd');
-        } else {
-            do_message("The passwords of the website are only editable by the administrator.<br />Please login here.");
-            do_action('passwd');
-            do_page('login');
-        }  
-    } elseif (isset($_GET['backlinks'])) { // Show backlinks
-        $blinks = page_backlinks($gPage);
-        html_backlinks($gPage, $blinks);  
-    } elseif (!empty($_GET['q'])) { // Search
-        $q = $_GET['q'];
-        $links = page_search($q);
-        html_results($q, $links);
-    } elseif (isset($_GET['all'])) { // All pages
-        $links = page_allpages($q);
-        html_allpages($links);
-    } else { // Show page
-        if (sec_can_read($gPage,$gUser)) {
-            do_content($gPage->render());
-            do_page('browse');
-        } else {
-            do_message("The $gPage->name page is only viewable with the correct permissions.<br />Please login here.");
-            do_page('login');
-        }
-    }
-    if (!isset($_GET['create']) && $gPage->exists()) {
-    	$_SESSION['prevpage'] = $gPage;
+    if (isset($_GET['login'])) {
+        login();
+    } else if (isset($_GET['logout'])) {
+        logout();
+    } else if (isset($_GET['create'])) {
+        create();
+    } else if (isset($_GET['edit'])) {
+        get_page_or_die();
+        edit();
+    } else if (isset($_GET['q'])) {
+        search();
+    } else if (isset($_GET['perm'])) {
+        get_page_or_die();
+        perm();
+    } else if (isset($_GET['layout'])) {
+        get_page_or_die();
+        layout();
+    } else if (isset($_GET['passwd'])) {
+        passwd();
+    } else if (isset($_GET['backlinks'])) {
+        get_page_or_die();
+        backlinks();
+    } else if (isset($_GET['all'])) {
+        all();
+    } else {
+        get_page_or_die();
+        browse();
     }
 }
 ?>

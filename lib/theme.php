@@ -1,52 +1,43 @@
 <?php
-class Theme {
 
-    function Theme($name = 'default') {
-        global $gThemesFolder;
-        $this->_name = $name;
-        $this->_path = $gThemesFolder . $name . '/';
-        
-        if ($name != 'default')
-            $this->_defaultTheme = new Theme;
-    }
-    
-    function out($template) {
-        $fname = $this->findTemplate($template);
+function theme_out($template) {
+    global $gTheme;
+    if (theme_check_if_exists($gTheme)) {
+        $fname = theme_find_file($gTheme, $template);
         if ($fname)
             include($fname);
     }
+}
 
-    function findTemplate($name) {
-        return $this->_findFile("templates/$name.tmpl");
-    }
+function theme_find_file($theme, $template) {
+    // Find the file in the current theme folder
+    if (file_exists(theme_file($theme, $template)))
+        return theme_file($theme, $template);
 
-    function _findFile($fname) {
-        // Find the file in the current theme folder
-        if (file_exists($this->_path . $fname))
-            return $this->_path . $fname;
+    // Find the file in the default theme folder
+    if (file_exists(theme_file('default', $template)))
+        return theme_file('default', $template);
 
-        // Find the file in the default theme folder
-        if (file_exists($this->_defaultTheme->_path . $fname))
-            return $this->_defaultTheme->_path . $fname;
+    log_err("Template " . $template . " could not be found.");
+    return false;
+}
 
-        log_err("File " . $fname . " could not be found.");
-        return false;
+function theme_file($theme, $template=false) {
+    global $gThemesFolder;
+    if (!$template) {
+        return "$gThemesFolder$theme";
+    } else {
+        return "$gThemesFolder$theme/templates/$template.tmpl";
     }
 }
 
-function theme_load($name) {
-    global $gThemesFolder;
-    $themeFolder = $gThemesFolder . $name;
-    if (is_dir($themeFolder)) {        
-        if (file_exists($themeFolder . '/themeinfo.php')) {
-            include($themeFolder . '/themeinfo.php');
-        } else {
-            log_err("themeinfo.php not found for theme $name.");
-        }
-    } else {
+function theme_check_if_exists($theme) {
+    if (!is_dir(theme_file($theme))) {        
         log_err("Theme folder $themeFolder not found.");
+        return false;
+    } else {
+        return true;
     }
-    return false;
 }
 
 ?>

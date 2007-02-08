@@ -36,18 +36,4 @@ function name_validate($pname) {
     return true;
 }
 
-function name_linkto($page, $action=null, $prevpage = null) {
-    global $gScript;
-    if (is_object($page))
-        $page = $page->name;
-    $link = "/$page";
-    if (!empty($action)) {
-        $link .= "&a=$action";
-    }
-    if (!empty($prevpage)) {
-        $link .= "&prevpage=$prevpage";
-    }
-    return $link;
-}
-
 ?>

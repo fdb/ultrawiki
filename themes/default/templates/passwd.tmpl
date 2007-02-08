@@ -4,7 +4,7 @@ $users = do_var('users');
 $groups = do_var('groups');
 ?>
 <h1><span class="action">User Management</span></h1>
-<form method="post" action="<?php print do_href() ?>" class="uwform" id="passwd">
+<form method="post" action="<?php print do_href(do_name(), do_action()) ?>" class="uwform" id="passwd">
 <textarea cols="70" rows="12" name="users" id="passwd-users"><?php print$users?></textarea><br />
 <textarea cols="70" rows="12" name="groups" id="passwd-groups"><?php print$groups?></textarea><br />
 <input type="submit" value="Save" accesskey="s" />

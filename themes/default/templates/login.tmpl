@@ -1,16 +1,13 @@
 <?php
 do_bodytag('onload="document.getElementById(\'login-username\').focus()"');
 ?>
-<div id="message"><?php print do_content() ?></div>
 <h1><?php print do_title() ?><span class="action"> &rarr; login</span></h1>
-<? if (do_message()): ?>
-    <?php print do_message() ?>
-<? endif ?>
+<div id="message"><?php print do_message() ?></div>
 <br />
 <form method="post" action="<?php print do_href(do_name(), do_action()) ?>" class="uwform" id="login">
 <table cellpadding="4" width="200" class="login">
-<tr><td>Gerbruikersnaam:</td><td><input type="text" name="username" size="20" maxlength="32" id="login-username" /></td></tr>
-<tr><td>Paswoord:</td><td><input type="password" name="password" size="20" maxlength="32" id="login-password" /></td></tr>
+<tr><td>Username:</td><td><input type="text" name="username" size="20" maxlength="32" id="login-username" /></td></tr>
+<tr><td>Password:</td><td><input type="password" name="password" size="20" maxlength="32" id="login-password" /></td></tr>
 <tr><td></td><td><input type="submit" name="s" value="Login" /><input type="hidden" name="__login" /></td></tr>
 </table>
 </form>

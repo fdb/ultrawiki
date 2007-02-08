@@ -3,7 +3,7 @@ do_bodytag('onload="document.getElementById(\'edit-text\').focus()"');
 do_headtag('<script type="text/javascript" src="' . do_wiki_url('edit.js') .'"></script>');
 ?>
 <h1><?php print do_title() ?><span class="action"> &rarr; edit</span></h1>
-<form method="post" action="<?php print do_href() ?>" class="uwform" id="edit">
+<form method="post" action="<?php print do_href(do_name(), do_action()) ?>" class="uwform" id="edit">
 <textarea cols="70" rows="25" name="text" id="edit-text" onselect="storeCaret(this)" onclick="storeCaret(this)" onkeyup="storeCaret(this)"><?php print do_content() ?></textarea>
 <br />
 <input type="button" value="Media" accesskey="m" onclick="insertMediaElement()" />

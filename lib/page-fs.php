@@ -128,6 +128,10 @@ class Page {
         $this->_cacheRemove();
     }
     
+    function last_update() {
+        return @filemtime($this->filename);
+    }
+    
     function _formatMetadata() {
         $s = '';
         if (!empty($this->creator)) $s  = ":creator=$this->creator";        
@@ -165,7 +169,7 @@ class Page {
     }
 
     function _cacheCreate() {
-        $render = Markdown($this->content);
+        $render = Smartypants(Markdown($this->content));
         util_write_file($this->cachename, $render);
         return $render;
     }

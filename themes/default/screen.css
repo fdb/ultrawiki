@@ -1,5 +1,3 @@
-/* @override http://igor.local/ultrawiki/themes/default/screen.css */
-
 body {
 	font: small verdana, helvetica, sans-serif;
 	margin: 0;
@@ -39,26 +37,14 @@ body {
 	line-height: 170%;
 }
 
-#actionbar { 
-	background: #f7f7f7;
-	border-top: 1px solid #ccc;
-	border-bottom: 1px solid #ccc;
-	padding: 5px 10px;
-}
-
-#actionbar a { 
-	color: #77f;
-	margin-right: 5px;
-}
-
 #content, #footer, #actionbar { 
-	margin: 0 0 0 11em;
+	margin: 0 0 0 135px;
 	width: 60em;
 }
 
 #content {
 	margin-top: 15px;
-	margin-bottom: 10px;
+	margin-bottom: 5px;
 }
 
 #content ul {
@@ -85,8 +71,37 @@ body {
 	margin: 5px 0 10px 0;
 }
 
+#content blockquote {
+	font-style: italic;
+}
+
+#content hr {
+	border: none;
+	border-top: 1px solid #999;
+	margin: 15px 0 15px 0;
+}
+
+#content #updated {
+	font-size: 85%;
+	color: #ccc;
+	padding: 5px 10px 0 5px;
+}
+
+#actionbar { 
+	background: #f7f7f7;
+	border-top: 1px solid #ccc;
+	border-bottom: 1px solid #ccc;
+	padding: 5px 10px;
+}
+
+#actionbar a { 
+	color: #77f;
+	margin-right: 5px;
+}
+
 #footer {
 	border-bottom: 1px solid #eee;
+	font-size: 85%;
 	color: #ccc;
 	padding: 5px 10px;
 }

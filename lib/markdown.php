@@ -921,7 +921,7 @@ function _DoAnchors_wiki_callback($matches) {
 	global $md_escape_table;
 	$whole_match = $matches[1];
 	$wiki_name   = $matches[2];
-	$url = name_linkto(name_display2page($wiki_name));
+	$url = do_href(name_display2page($wiki_name));
     # We've got to encode these to avoid conflicting with italics/bold.
     $url = str_replace(array('*', '_'),
                        array($md_escape_table['*'], $md_escape_table['_']),

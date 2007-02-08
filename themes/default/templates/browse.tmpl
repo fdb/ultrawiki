@@ -1,2 +1,5 @@
-<h1><?php print do_title() ?></h1>
+<h1><?php print do_name() == do_homepage() ? "" :  do_title() ?></h1>
 <?php print do_content() ?>
+<div id="updated">
+	Last update &mdash; <?php print date("d F Y H:i ", do_last_update()) ?>
+</div>

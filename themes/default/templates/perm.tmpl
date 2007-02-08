@@ -1,4 +1,6 @@
 <?php 
+global $gPage, $gUser;
+
 function _perm_options($perm, $show_noaccess=True) {
     $s = "";
     if ($perm == '7') {
@@ -26,28 +28,28 @@ function _perm_options($perm, $show_noaccess=True) {
     return $s;
 }
 
-list($creatormode, $groupmode, $worldmode) = $ctx->page->mode;
-if (sec_is_admin($ctx->user)) { 
-    $groups = sec_all_groups($ctx->user);
+list($creatormode, $groupmode, $worldmode) = $gPage->mode;
+if (sec_is_admin($gUser)) { 
+    $groups = sec_all_groups($gUser);
 } else {
-    $groups = sec_groups($ctx->user);
+    $groups = sec_groups($gUser);
 }
 ?>
 <h1><?php print do_title() ?><span class="action"> &rarr; permissions</span></h1>
-<form method="post" action="<?php print do_href() ?>" class="uwform" id="perm" >
+<form method="post" action="<?php print do_href(do_name(), do_action()) ?>" class="uwform" id="perm" >
 <table class="perm">
 <tr><td align="right">Creator:</td><td>
-<?php if (sec_is_admin($ctx->user)): ?>
+<?php if (sec_is_admin($gUser)): ?>
     <select name="creator">
     <?php foreach (sec_all_users() as $user): ?>
-        <?php if ($ctx->page->creator == $user): ?>
-            <option value="<?php print$user?>" selected="selected"><?php print$user?></option>
+        <?php if ($gPage->creator == $user): ?>
+            <option value="<?php print $user?>" selected="selected"><?php print $user?></option>
         <?php else: ?>
-            <option value="<?php print$user?>"><?php print$user?></option>
+            <option value="<?php print $user?>"><?php print $user?></option>
         <?php endif ?>
     <?php endforeach ?>
 <?php else: ?>
-    <?php print $ctx->page->creator ?><input type="hidden" name="creator" value="<?php print $ctx->page->creator ?>" />
+    <?php print $gPage->creator ?><input type="hidden" name="creator" value="<?php print $gPage->creator ?>" />
 <?php endif ?>
 </select>
 </td></tr>
@@ -59,10 +61,10 @@ if (sec_is_admin($ctx->user)) {
 <tr><td align="right">Group:</td>
 <td><select name="group">
 <?php foreach($groups as $group): ?>
-    <?php if ($ctx->page->group == $group): ?>
-        <option value="<?php print$group?>" selected="selected"><?php print$group?></option>
+    <?php if ($gPage->group == $group): ?>
+        <option value="<?php print $group?>" selected="selected"><?php print $group?></option>
     <?php else: ?>
-        <option value="<?php print$group?>"><?php print$group?></option>
+        <option value="<?php print $group?>"><?php print $group?></option>
     <?php endif ?>
 <?php endforeach ?>
 </select></td></tr>
@@ -76,7 +78,7 @@ if (sec_is_admin($ctx->user)) {
 </select></td></tr>
 <tr><td colspan="2">&nbsp;</td></tr>
 <tr><td align="right">Parent:</td>
-<td><input type="text" name="parent" size="20" value="<?php print$ctx->page->parentPage?>" /></td></tr>
+<td><input type="text" name="parent" size="20" value="<?php print $gPage->parentPage?>" /></td></tr>
 <tr><td colspan="2">&nbsp;</td></tr>
 <tr><td></td><td><input type="submit" name="s" value="Save" accesskey="s" /><input type="hidden" name="__perm" /></td></tr>
 </table>

@@ -1,16 +1,5 @@
 <?php
 
-class Context {
-    var $page;
-    var $user;
-
-    function Context($page=false,$user=false) {
-        global $gPage, $gUser;
-        $this->page = $gPage;
-        $this->user = $gUser;
-    }
-}
-
 /* Controller object */
 
 /* STATE VARIABLES */
@@ -66,21 +55,15 @@ function do_var($key, $value=null) {
 }
 
 function do_page($template) {
-    global $_do_content;
-    global $CONTENT, $gOutputType, $Theme;
+    global $gOutputType, $Theme, $_do_content;
     ob_start();
-    do_template($template);
+    theme_out($template);
     do_content(ob_get_clean());
-    do_template($gOutputType);
+    theme_out($gOutputType);
 }
 
-function do_template($template) {    
-    global $Theme;
-    $ctx = new Context;
-    $fname = $Theme->findTemplate($template);
-    if ($fname) {
-        include($fname);
-    }
+function do_template($template) {
+    theme_out($template);
 }
 
 function do_link($page=false, $display=false, $action=false, $prevpage=false, $accesskey=false) {
@@ -197,6 +180,11 @@ function do_can_perm() {
 function do_can_passwd() {
     global $gUser;
     return sec_can_passwd($gUser);
+}
+
+function do_last_update() {
+    global $gPage;
+    return $gPage->last_update();
 }
 
 ?>

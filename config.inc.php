@@ -43,6 +43,8 @@ $gMovieTypes = array("mov");
 
 $gOutputType = 'html';
 
+date_default_timezone_set('Europe/Brussels');
+
 //=== Don't change these ==//
 $gReadFlag = 4;
 $gEditFlag = 2;
