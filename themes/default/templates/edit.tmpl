@@ -6,6 +6,7 @@ do_headtag('<script type="text/javascript" src="' . do_wiki_url('edit.js') .'"><
 
 <?php if (do_message()) { ?><p id="message"><?php print do_message() ?></p><?php } ?>
 <?php if (do_secondary_content()) { ?>
+    <p class="important">The page was saved by somebody else while you were editing it.</p>
     <p>Here is the content of the <strong>new</strong> version:</p>
 <?php } ?>
 <form method="post" action="<?php print do_href(do_name(), do_action()) ?>" class="uwform" id="edit">
@@ -17,10 +18,9 @@ do_headtag('<script type="text/javascript" src="' . do_wiki_url('edit.js') .'"><
 
 <?php if (do_secondary_content()) { ?>
 <div id="content-secondary">
-<p>For reference, here are the differences between the files.</p>
-<p class="important">Your changes will <strong>not</strong> be saved unless you copy what you changed and paste it into the upper area.</p>
-
-<code><?php print do_secondary_content() ?></code>
+    <p>For reference, here are the differences between the files.</p>
+    <p class="important">Your changes will <strong>not</strong> be saved unless you copy what you changed and paste it into the upper area.</p>
+<div id="file-diff"><code><?php print do_secondary_content() ?></code></div>
 </div>
 <?php } ?>
 

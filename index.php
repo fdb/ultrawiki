@@ -20,6 +20,7 @@ require_once('lib/util.php');
 require_once('lib/markdown.php');
 require_once('lib/smartypants.php');
 require_once('lib/do.php');
+require_once('lib/diff.php');
 session_start();
 
 
@@ -80,7 +81,6 @@ function create() {
         do_page('forbidden');
     }
 }
-require_once('lib/diff.php');
 
 function edit() {
     global $gPage, $gUser;
@@ -89,7 +89,6 @@ function edit() {
             header("Location: " . do_href($gPage, 'create'));
         if (getenv("REQUEST_METHOD") == "POST") {
             if ($gPage->last_update() > $_POST['mtime']) {
-                do_message("The page was saved by somebody else while you were editing it.");
                 do_content($gPage->content);
                 $diff_html = diff_html($_POST['text'], $gPage->content);
                 do_secondary_content($diff_html);

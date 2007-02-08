@@ -118,25 +118,21 @@ form.uwform {
     color: red;
 }
 
-p#message {
-    font-weight: bold;
-    color: red;
-}
-
-div#content-secondary {
-	line-height: 1.2em;
+div#file-diff {
+	border-left: 2px solid #ccc;
+	padding: 0 0 0 5px;
 }
 
 span.diff-added, span.diff-removed {
 	position: relative;
-	left: -18px;
-	padding-left: 18px;
+	left: -22px;
+	padding-left: 22px;
 }
 
 span.diff-added {
-	background: #eee url('../img/diff-added.gif') no-repeat;
+	background: #ccf url('../img/diff-added.gif') no-repeat;
 }
 
 span.diff-removed {
-	background: #eee url('../img/diff-removed.gif') no-repeat;
+	background: #fcc url('../img/diff-removed.gif') no-repeat;
 }
