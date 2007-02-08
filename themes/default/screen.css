@@ -1,3 +1,5 @@
+/* @override http://ph-vieras-158.prv.phkk.fi/ultrawiki/themes/default/screen.css */
+
 body {
 	font: small verdana, helvetica, sans-serif;
 	margin: 0;
@@ -119,4 +121,22 @@ form.uwform {
 p#message {
     font-weight: bold;
     color: red;
+}
+
+div#content-secondary {
+	line-height: 1.2em;
+}
+
+span.diff-added, span.diff-removed {
+	position: relative;
+	left: -18px;
+	padding-left: 18px;
+}
+
+span.diff-added {
+	background: #eee url('../img/diff-added.gif') no-repeat;
+}
+
+span.diff-removed {
+	background: #eee url('../img/diff-removed.gif') no-repeat;
 }

@@ -80,6 +80,7 @@ function create() {
         do_page('forbidden');
     }
 }
+require_once('lib/diff.php');
 
 function edit() {
     global $gPage, $gUser;
@@ -90,7 +91,8 @@ function edit() {
             if ($gPage->last_update() > $_POST['mtime']) {
                 do_message("The page was saved by somebody else while you were editing it.");
                 do_content($gPage->content);
-                do_secondary_content($_POST['text']);
+                $diff_html = diff_html($_POST['text'], $gPage->content);
+                do_secondary_content($diff_html);
                 do_action('edit');
                 do_page('edit');
             } else {

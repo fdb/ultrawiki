@@ -6,7 +6,7 @@ do_headtag('<script type="text/javascript" src="' . do_wiki_url('edit.js') .'"><
 
 <?php if (do_message()) { ?><p id="message"><?php print do_message() ?></p><?php } ?>
 <?php if (do_secondary_content()) { ?>
-    <p>Here is the content of the new version:</p>
+    <p>Here is the content of the <strong>new</strong> version:</p>
 <?php } ?>
 <form method="post" action="<?php print do_href(do_name(), do_action()) ?>" class="uwform" id="edit">
 <textarea cols="70" rows="25" name="text" id="edit-text" onselect="storeCaret(this)" onclick="storeCaret(this)" onkeyup="storeCaret(this)"><?php print do_content() ?></textarea>
@@ -16,11 +16,12 @@ do_headtag('<script type="text/javascript" src="' . do_wiki_url('edit.js') .'"><
 <input type="hidden" name="mtime" value="<?php print do_last_update() ?>"/>
 
 <?php if (do_secondary_content()) { ?>
+<div id="content-secondary">
+<p>For reference, here are the differences between the files.</p>
+<p class="important">Your changes will <strong>not</strong> be saved unless you copy what you changed and paste it into the upper area.</p>
 
-<p>For reference, this is your original file.</p>
-<p class="important">This will <strong>not</strong> be saved; copy what you changed and paste it into the upper area.</p>
-
-<textarea cols="70" rows="25"><?php print do_secondary_content() ?></textarea>
+<code><?php print do_secondary_content() ?></code>
+</div>
 <?php } ?>
 
 </form>
