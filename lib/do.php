@@ -4,12 +4,22 @@
 
 /* STATE VARIABLES */
 
+$_do_content = false;
+$_do_secondary_content = false;
+
 /* Sets or gets the content */
 function do_content($content=false) {
     global $_do_content;
     if ($content)
         $_do_content = $content;
     return $_do_content;
+}
+
+function do_secondary_content($secondary_content=false) {
+    global $_do_secondary_content;
+    if ($secondary_content)
+        $_do_secondary_content = $secondary_content;
+    return $_do_secondary_content;
 }
 
 /* Sets or gets the action */

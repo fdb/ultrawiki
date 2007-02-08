@@ -16,8 +16,6 @@ require_once('lib/do.php');
 require_once('lib/sec.php');
 require_once('lib/page-fs.php');
 require_once('lib/embed.php');
-#require_once('lib/page-db.php');
-#require_once('lib/adodb/adodb.inc.php');
 require_once('lib/util.php');
 require_once('lib/markdown.php');
 require_once('lib/smartypants.php');
@@ -89,9 +87,17 @@ function edit() {
         if (!$gPage->exists()) // If the page doesn't exist, redirect to the create page.
             header("Location: " . do_href($gPage, 'create'));
         if (getenv("REQUEST_METHOD") == "POST") {
-            $gPage->content = $_POST['text'];
-            $gPage->store();
-            header("Location: " . do_href($gPage));
+            if ($gPage->last_update() > $_POST['mtime']) {
+                do_message("The page was saved by somebody else while you were editing it.");
+                do_content($gPage->content);
+                do_secondary_content($_POST['text']);
+                do_action('edit');
+                do_page('edit');
+            } else {
+                $gPage->content = $_POST['text'];
+                $gPage->store();
+                header("Location: " . do_href($gPage));
+            }
         } else {
             do_content($gPage->content);
             do_action('edit');

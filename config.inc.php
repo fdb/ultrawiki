@@ -28,8 +28,6 @@ $gDefaultThemeURL = $gWikiURL . 'themes/default/';
 $gMediaURL = $gWikiURL . 'data/media/';
 $gThumbURL = $gWikiURL . 'data/thumbs/';
 
-$gMediaURL = $gWikiURL . 'data/media/';
-$gThumbURL = $gWikiURL . 'data/thumbs/';
 $gThumbWidth = $gThumbHeight = 150;
 $gThumbQuality = 90;
 $gThumbBackRed = 240;

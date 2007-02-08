@@ -110,3 +110,13 @@ form.uwform {
 	margin: 0 0 0px 0;
 	padding: 0 0 0px 0;
 }
+
+.important {
+    font-weight: bold;
+    color: red;
+}
+
+p#message {
+    font-weight: bold;
+    color: red;
+}
