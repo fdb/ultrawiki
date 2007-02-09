@@ -165,7 +165,7 @@ class Diff {
 			$i = $a[2];
 			$a = $a[0];
 		}
-		$out = array ();
+		$out = array();
 
 /*
 		echo html::h2 ('intersecting');
@@ -178,32 +178,41 @@ class Diff {
 
 		$incr = 0;
 
-		$top = array ();
-		@$top[] = array_shift (array_reverse (array_keys ($i)));
-		@$top[] = array_shift (array_reverse (array_keys ($r)));
-		@$top[] = array_shift (array_reverse (array_keys ($a)));
+		$top = array();
+		
+		
+		$reversed_i_keys = array_reverse(array_keys($i));
+		$reversed_r_keys = array_reverse(array_keys($r));
+		$reversed_a_keys = array_reverse(array_keys($a));
+		//$top[] = array_shift(array_reverse(array_keys($i)));
+		//$top[] = array_shift(array_reverse(array_keys($r)));
+		//$top[] = array_shift(array_reverse(array_keys($a)));
+		$top[] = array_shift($reversed_i_keys);
+		$top[] = array_shift($reversed_r_keys);
+		$top[] = array_shift($reversed_a_keys);
+		
 		rsort ($top);
-		$top = array_shift ($top);
+		$top = array_shift($top);
 
 		for ($x = 0; $x <= $top; $x++) {
-			if (isset ($a[$x + $incr])) {
-				while (isset ($a[$x + $incr])) {
-					$out[] = array ('+', $a[$x + $incr]);
-					unset ($a[$x + $incr]);
+			if (isset($a[$x + $incr])) {
+				while (isset($a[$x + $incr])) {
+					$out[] = array('+', $a[$x + $incr]);
+					unset($a[$x + $incr]);
 					$incr++;
 				}
 			}
 			if (isset ($r[$x])) {
 				$count = 0;
 				while (isset ($r[$x + $count])) {
-					$out[] = array ('-', $r[$x + $count]);
-					unset ($r[$x + $count]);
+					$out[] = array('-', $r[$x + $count]);
+					unset($r[$x + $count]);
 					$count++;
 					$incr--;
 				}
 			}
-			if (isset ($i[$x])) {
-				$out[] = array (false, $i[$x]);
+			if (isset($i[$x])) {
+				$out[] = array(false, $i[$x]);
 			}
 		}
 		return $out;
@@ -284,7 +293,7 @@ info (array_intersect (preg_split (DIFF_SPACE, $page1[0]), preg_split (DIFF_SPAC
 function diff_html($new, $old) {
     $diff = new Diff (DIFF_LINE);
     $html = "";
-	//print_r ( $diff->format ($diff->compare ($page1, $page2)) );
+	//print_r ( $diff->format ($diff->compare ($old, $new)) );
 	foreach ( $diff->format ($diff->compare ($old, $new)) as $line) {
 		if ($line[0] == '+') {
 		    $html .= '<span class="diff-added">' . $line[1] . "</span><br />\n";
