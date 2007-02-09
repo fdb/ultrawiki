@@ -7,8 +7,8 @@ body {
 }
 
 #header h1 {
- 	font: 150% helvetica;
- 	font-weight: bold;
+	font: 150% helvetica;
+	font-weight: bold;
 	background: #eee;
 	margin: 0 0 0 0;
 	padding: 10px;
@@ -114,8 +114,8 @@ form.uwform {
 }
 
 .important {
-    font-weight: bold;
-    color: red;
+	font-weight: bold;
+	color: red;
 }
 
 div#file-diff {
@@ -135,4 +135,41 @@ span.diff-added {
 
 span.diff-removed {
 	background: #fcc url('../img/diff-removed.gif') no-repeat;
+}
+
+#marktoggle {
+	height: 12px;
+	vertical-align: middle;
+	display: inline;
+	padding-left: 12px;
+}
+
+#marktoggle a {
+	padding: 0 3px;
+}
+
+#markguide table {
+	margin: 10px 0 5px 0;
+}
+
+#markguide table th {
+	background: #ddd;
+	text-align: left;
+	font-weight: normal;
+}
+
+#markguide table th, #markguide table td {
+	padding: 5px;
+}
+
+#markguide table tr td + td {
+	font-family: monospace;
+}
+
+#marktoggle.closed {
+	background: url('../img/help-closed.gif') no-repeat scroll 0%;
+}
+
+#marktoggle.open {
+	background: url('../img/help-open.gif') no-repeat scroll 0%;
 }

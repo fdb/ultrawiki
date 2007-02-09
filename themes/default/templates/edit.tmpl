@@ -12,9 +12,11 @@ do_headtag('<script type="text/javascript" src="' . do_wiki_url('edit.js') .'"><
 <form method="post" action="<?php print do_href(do_name(), do_action()) ?>" class="uwform" id="edit">
 <textarea cols="70" rows="25" name="text" id="edit-text" onselect="storeCaret(this)" onclick="storeCaret(this)" onkeyup="storeCaret(this)"><?php print do_content() ?></textarea>
 <br />
+<input type="hidden" name="mtime" value="<?php print do_last_update() ?>"/>
 <input type="button" value="Media" accesskey="m" onclick="insertMediaElement()" />
 <input type="submit" value="Save" accesskey="s" />
-<input type="hidden" name="mtime" value="<?php print do_last_update() ?>"/>
+
+<?php do_template('help') ?>
 
 <?php if (do_secondary_content()) { ?>
 <div id="content-secondary">

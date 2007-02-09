@@ -1,5 +1,7 @@
 <?php
 
+require_once('lib/page-fs.php');
+
 /* Controller object */
 
 /* STATE VARIABLES */
@@ -151,6 +153,16 @@ function do_name() {
 function do_title() {
     global $gPage;
     return $gPage->display;
+}
+
+function do_render($page=false) {
+    global $gPage;
+    if (!$page) {
+        $page = $gPage;
+    } else {
+        $page = new Page($page);
+    }
+    return $page->render();
 }
 
 function do_postvar() {
