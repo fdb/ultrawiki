@@ -1,6 +1,7 @@
 <?php
 
 require_once('config.inc.php');
+require_once('lib/do.php');
 
 $gRequest = $_SERVER['REQUEST_URI'];
 $gSelf = $_SERVER['PHP_SELF'];
@@ -119,10 +120,13 @@ function html_header() {
     global $gWikiName, $gSelf;
     echo "<html><head><meta HTTP-EQUIV=\"content-type\" CONTENT=\"text/html; charset=UTF-8\">";
     echo "<title>$gWikiName - Media</title>\n";
-    echo "<link href=\"themes/default/default.css\" rel=\"stylesheet\" type=\"text/css\">\n";
+    echo "<link href=\"".do_theme_url('screen.css') . "\" rel=\"stylesheet\" type=\"text/css\">\n";
     echo "<script type=\"text/javascript\" src=\"edit.js\"></script>\n";
-    echo "</head><body>\n";
+    echo "</head><body id=\"media\">\n";
+    echo "<div id=\"tabs\">\n";
     echo "<a href=\"$gSelf?type=image\">Image</a>&nbsp;<a href=\"$gSelf?type=sound\">Sound</a>&nbsp;<a href=\"$gSelf?type=movie\">Movie</a>&nbsp;<a href=\"$gSelf?type=upload\">Upload</a><br><br>\n";
+    echo "</div>\n";
+    echo "<div id=\"content\">\n";
 }
 
 function html_upload() {

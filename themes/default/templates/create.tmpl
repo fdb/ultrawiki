@@ -4,7 +4,7 @@ do_headtag('<script type="text/javascript" src="' . do_wiki_url('edit.js') .'"><
 ?>
 <h1><?php print do_title() ?><span class="action"> &rarr; create</span></h1>
 <form method="post" action="<?php print do_href(do_name(), do_action()) ?>" class="uwform" id="create">
-<textarea cols="70" rows="25" name="text" id="create-text" onselect="storeCaret(this)" onclick="storeCaret(this)" onkeyup="storeCaret(this)"><?php print do_content() ?></textarea>
+<textarea cols="70" rows="25" name="text" id="text" onselect="storeCaret(this)" onclick="storeCaret(this)" onkeyup="storeCaret(this)"><?php print do_content() ?></textarea>
 <br />
 <input type="hidden" name="prevpage" value="<?php print do_getvar('prevpage') ?>" />
 <input type="button" value="Media" accesskey="m" onclick="insertMediaElement()" />

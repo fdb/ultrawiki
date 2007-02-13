@@ -173,3 +173,27 @@ span.diff-removed {
 #marktoggle.open {
 	background: url('../img/help-open.gif') no-repeat scroll 0%;
 }
+
+#media #tabs {
+	padding: 5px 10px 0 15px;
+	background: #eee;
+}
+
+#media #tabs a {
+	background: #fff;
+	padding: 5px 2px;
+}
+#media #content {
+	margin: 10px;
+}
+#media .thumb {
+	float: left;
+	padding: 5px;
+	width: 162px;
+	overflow: hidden;
+	
+}
+#media .thumb a img {
+	border: 1px solid #aaa;
+	padding: 2px;
+}
