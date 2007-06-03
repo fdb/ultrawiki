@@ -9,6 +9,7 @@
 $gWikiName = 'Ultrawiki';
 $gTheme = 'default';
 $gHomepage = 'homepage';
+$gIndexPage = 'index'; # File for subdirectories
 
 $gWikiFolder = './';
 $gWikiURL = '/ultrawiki/';

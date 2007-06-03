@@ -14,17 +14,21 @@ function name_display2page($display) {
 }
 
 function name_page2display($page) {
-    return ucwords(str_replace('-', ' ', $page));
+    return ucwords(str_replace('/', ' &raquo; ', str_replace('-', ' ', $page)));
 }
 
 function name_page2file($page) {
-    global $gTextFolder;    
-    return $gTextFolder . '/' . $page . ".txt";    
+    global $gTextFolder;
+    // This removes the last slash from the URL
+    $page = substr($page, 0, -1);
+    return "$gTextFolder$page.txt";
 }
 
 function name_page2cache($page) {
-    global $gCacheFolder;    
-    return $gCacheFolder . '/' . $page . ".html";
+    global $gCacheFolder;
+    // This removes the last slash from the URL
+    $page = substr($page, 0, -1);
+    return "$gCacheFolder$page.html";
 }
 
 function name_file2page($file) {

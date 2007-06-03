@@ -71,7 +71,7 @@ function create() {
             $gPage->creator = $gUser;
             $gPage->inherit($_SESSION['prevpage']);
             $gPage->store();
-            header("Location: " . do_href($gPage));
+            //header("Location: " . do_href($gPage));
         } else {
             do_action('create');
             do_page('create');
@@ -212,17 +212,18 @@ $gSelf = $_SERVER['PHP_SELF'];
 $gScript = $_SERVER['SCRIPT_NAME'];
 $gPageName = name_from_request();
 if (empty($gPageName))
-    $gPageName = $gHomepage;
+    $gPageName = $gHomepage . '/';
 $gPage = new Page($gPageName);
 $gUser = @$_SESSION['user'];
 
 if (strtolower($gPageName) != $gPageName) {
     $gPageName = strtolower($gPageName);
     header("Location: " . do_href($gPageName));
-} else if (stripos($gRequest, 'index.php')) {
+} else if (stripos($gRequest, 'index.php') or (substr($gPageName, -1, 1) != '/')) {
     $gPageName = strtolower($gPageName);
     header("Location: " . do_href($gPageName));
 } else {
+    $gPageName = substr($gPageName, 0, -1);
     if (isset($_GET['login'])) {
         login();
     } else if (isset($_GET['logout'])) {

@@ -72,7 +72,7 @@ function embed_sound($url, $autoplay=False, $controller=True, $loop=True) {
     return $s;
 }
 
-function embed_movie($url, $autoplay=False, $loop=False, $controller=True) {
+function embed_movie($url, $autoplay=false, $loop=false, $controller=true) {
     $parmAutoplay = ($autoplay ? 'true' : 'false');
     $parmLoop = ($loop ? 'true' : 'false');
     $parmController = ($controller ? 'true' : 'false');

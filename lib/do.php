@@ -118,6 +118,8 @@ function do_href($page=false, $action=false, $prevpage=false) {
         $page = $page->name;
     if (strcmp($page, $gHomepage) == 0) {
         $link = "$gWikiURL";
+    } else if (substr($page, -1, 1) != '/') {
+        $link = "$gWikiURL$page/";
     } else {
         $link = "$gWikiURL$page";
     }
