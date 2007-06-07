@@ -19,15 +19,11 @@ function name_page2display($page) {
 
 function name_page2file($page) {
     global $gTextFolder;
-    // This removes the last slash from the URL
-    $page = substr($page, 0, -1);
     return "$gTextFolder$page.txt";
 }
 
 function name_page2cache($page) {
     global $gCacheFolder;
-    // This removes the last slash from the URL
-    $page = substr($page, 0, -1);
     return "$gCacheFolder$page.html";
 }
 

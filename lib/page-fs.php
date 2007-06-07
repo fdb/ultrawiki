@@ -122,10 +122,8 @@ class Page {
     }
     
     function store() {
-        echo "store {$this->filename}";
         $this->_createFolderIfNeeded($this->filename);
         $handle = @fopen($this->filename, "w");
-        echo var_dump($handle);
         if (!$handle) return null;
         // Write metadata
         $meta = $this->_formatMetadata();
@@ -177,7 +175,6 @@ class Page {
     }
 
     function _cacheCreate() {
-        echo "create cache";
         $render = Smartypants(Markdown($this->content));
         $this->_createFolderIfNeeded($this->cachename);
         util_write_file($this->cachename, $render);
